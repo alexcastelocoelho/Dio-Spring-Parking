@@ -1,5 +1,7 @@
 package one.digitalinnovation.parking.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import one.digitalinnovation.parking.controller.dto.ParkingCreateDto;
 import one.digitalinnovation.parking.controller.dto.ParkingDTO;
 import one.digitalinnovation.parking.controller.mapper.ParkingMapper;
@@ -13,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/parking")
+@Api(tags = "Parking Controller")
 public class ParkingCotroller {
 
 
@@ -26,6 +29,7 @@ public class ParkingCotroller {
     }
 
     @GetMapping
+    @ApiOperation("Find all parkings")
     public ResponseEntity< List<ParkingDTO>> findAll() {
         List<Parking> parkingList = parkingService.findAll();
         List<ParkingDTO> result = parkingMapper.toParkingDTOList(parkingList);
