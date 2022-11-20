@@ -39,6 +39,7 @@ public class ParkingCotroller {
     @GetMapping("/{id}")
     public ResponseEntity<ParkingDTO> findById(@PathVariable String id) {
         Parking parking = parkingService.findById(id);
+
         ParkingDTO result = parkingMapper.toParkingDTO(parking);
         return ResponseEntity.ok(result);
     }
@@ -49,5 +50,18 @@ public class ParkingCotroller {
         var parking = parkingService.create(parkingCreate);
         var result = parkingMapper.toParkingDTO(parking);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ParkingDTO> update(@PathVariable String id, @RequestBody ParkingCreateDto parkingCreateDto) {
+        Parking parkingUpdate = parkingMapper.toParkingCreate(parkingCreateDto);
+        Parking parking = parkingService.update(id ,parkingUpdate);
+        return ResponseEntity.ok(parkingMapper.toParkingDTO(parking));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity delete(@PathVariable String id) {
+         parkingService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }
